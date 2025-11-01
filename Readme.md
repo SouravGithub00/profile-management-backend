@@ -114,6 +114,9 @@ npm start
 
 ## 🔑 API Endpoints
 
+See the detailed API documentation here: [apidocs.txt](./apidocs.txt)
+
+
 | Method | Route                   | Description                |
 | ------ | ----------------------- | -------------------------- |
 | `POST` | `/api/v1/auth/register` | Register a new user        |
