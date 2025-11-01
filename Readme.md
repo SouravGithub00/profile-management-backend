@@ -33,8 +33,10 @@ Create a `.env` file in the project root with the following:
 DATABASE_URL="file:./dev.db"
 PORT=5000
 JWT_SECRET=supersecretkey
+X_API_KEY=your_secret_key
 NODE_ENV=development
 ```
+make sure to use the same `your_secret_key` in frontend repo env as well. i.e, `VITE_BACKEND_KEY = your_secret_key`
 
 > 🧩 **Note:**
 >

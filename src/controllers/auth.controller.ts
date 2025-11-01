@@ -4,23 +4,27 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) return res.status(401).json({ message: "Invalid email" });
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) return res.status(401).json({ message: "Invalid email" });
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(401).json({ message: "Invalid password" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ message: "Invalid password" });
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "secret", { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "secret", { expiresIn: "1h" });
 
-  res.json({ token, user: { id: user.id, name: user.name, email: user.email }, });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, githubId: user.githubId }, });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message || "Internal server error" });
+  }
 };
 
 // REGISTER
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, githubId } = req.body;
 
     // Simple validation
     if (!email || !password) {
@@ -42,6 +46,7 @@ export const register = async (req: Request, res: Response) => {
         name,
         email,
         password: hashedPassword,
+        githubId: githubId || null,
       },
     });
 
@@ -53,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json({
       message: "User registered successfully",
       token,
-      user: { id: newUser.id, name: newUser.name, email: newUser.email },
+      user: { id: newUser.id, name: newUser.name, email: newUser.email, githubId: newUser.githubId },
     });
   } catch (err: any) {
     res.status(500).json({ message: err.message });
