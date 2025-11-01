@@ -114,7 +114,7 @@ npm start
 
 ## 🔑 API Endpoints
 
-See the detailed API documentation here: [apidocs.txt](./apidocs.txt)
+See the detailed API documentation here: [api.md](./api.md)
 
 
 | Method | Route                   | Description                |
