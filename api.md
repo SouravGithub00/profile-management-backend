@@ -12,6 +12,8 @@ All endpoints live under the `/api/v1` prefix.
 
 ### Environment variables (set in your `.env`)
 
+- `DATABASE_URL` — the database URL ("file:./dev.db") for SQLite.
+- `PORT` — the port your server will run on.
 - `X_API_KEY` — the API key expected in the `x-api-key` header.
 - `JWT_SECRET` — secret used to sign/verify JWT tokens.
 
