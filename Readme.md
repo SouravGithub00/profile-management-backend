@@ -59,7 +59,7 @@ npm install
 Prisma is already initialized. Just set up the database:
 
 ```bash
-npx prisma migrate dev
+npx prisma migrate deploy
 ```
 
 This will generate a local `dev.db` SQLite file inside the `/prisma` folder.
